@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "create-next-app": "^13.1.6",
+    "next": "^13.1.6"
+  }
+}
