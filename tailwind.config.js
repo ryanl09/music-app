@@ -8,8 +8,14 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'grad': '',
-      }
+        'dg-100': '#121212',
+        'dg-200': '#222',
+        'dg-300': '#353535',
+        'purple': '#9866c4'
+      },
+      gridTemplateColumns: {
+        '23': '2fr 1fr'
+      },
     },
   },
   plugins: [],
