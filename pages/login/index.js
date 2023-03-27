@@ -4,6 +4,8 @@ import GLink from '@/components/GLink'
 import Image from 'next/image';
 import Link from 'next/link';
 import { HiChevronLeft } from 'react-icons/hi';
+import { signIn } from 'next-auth/react';
+import Router from 'next/router';
 
 export default function Login() {
     const [form, setForm] = useState({
@@ -19,7 +21,13 @@ export default function Login() {
     }
 
     async function submitForm() {
+      let sign = await signIn('credentials', { redirect: false, username: form.username, password: form.password });
 
+      if (sign.error == null){
+        Router.push('/dashboard');
+      } else {
+        alert('Invalid credentials');
+      }
     }
 
     return (
@@ -40,12 +48,12 @@ export default function Login() {
                 <div className='flex flex-col'>
                     <p className='text-white font-medium text-sm'>Username</p>
                     <input type="text" name="username" value={form.username} onChange={updateForm}
-                    className='px-2 py-1 outline-none rounded-md border border-dg-300 text-white bg-dg-100' />
+                    className='px-4 py-2 outline-none rounded-md border border-dg-300 text-white bg-dg-100' />
                 </div>
                 <div className='flex flex-col'>
                     <p className='text-white font-medium text-sm'>Password</p>
                     <input type="password" name="password" value={form.password} onChange={updateForm}
-                    className='px-2 py-1 outline-none rounded-md border border-dg-300 text-white bg-dg-100' />
+                    className='px-4 py-2 outline-none rounded-md border border-dg-300 text-white bg-dg-100' />
                 </div>
                 <GBtn onClick={submitForm}>Submit</GBtn>
                 <Link href="/register" className='text-white text-sm flex items-center gap-2 hover:text-white/80'><HiChevronLeft /> Click here to register</Link>

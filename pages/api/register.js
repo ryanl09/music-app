@@ -1,4 +1,5 @@
 import query from '../../lib/db';
+import { hashPassword } from '../../lib/security.js';
 
 export default async function handler (req, res) {
 
@@ -26,19 +27,3 @@ export default async function handler (req, res) {
 
     res.status(200).json({ success: true });
 }
-
-async function hashPassword (pass) {
-    const bcrypt = require('bcrypt');
-
-    const password = pass;
-    const saltRounds = 10;
-  
-    const hashedPassword = await new Promise((resolve, reject) => {
-      bcrypt.hash(password, saltRounds, function(err, hash) {
-        if (err) reject(err)
-        resolve(hash)
-      });
-    })
-  
-    return hashedPassword;
-  }

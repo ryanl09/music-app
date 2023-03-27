@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
 import { HiChevronLeft } from 'react-icons/hi';
+import { signIn } from 'next-auth/react';
+import Router from 'next/router';
 
 export default function Register() {
 
@@ -47,9 +49,25 @@ export default function Register() {
         }
 
         const f = await axios.post('/api/register', form);
-
         console.log(f);
 
+        if (f.data.success === undefined) {
+            alert('There was an error creating your account');
+            return;
+        }
+
+        if (f.data.success !== true){
+            alert('There was an error creating your account');
+            return;
+        }
+
+        const sign = await signIn('credentials', { redirect: false, username: form.username, password: form.password });
+
+        if (sign.error == null){
+            Router.push('/dashboard');
+        } else {
+            alert('There was an error creating your account');
+        }
 
     }
 
