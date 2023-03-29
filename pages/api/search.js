@@ -22,47 +22,48 @@ export default async function handler(req, res){
 }
 
 async function searchUsers(accountTags, musicTags) {
-    let sql = `SELECT DISTINCT users.username
-    FROM users `;
+    let sql = `SELECT users.id, users.username
+    FROM users
+    `;
 
     let vals = [];
+    let ac = accountTags.length;
+    let mc = musicTags.length;
+    let where = '';
+    let having = '';
 
-    if (accountTags.length > 0){
+    if (ac > 0){
         let ins = Array(accountTags.length).fill('?').join(',');
-        sql += `INNER JOIN userAccountTags uat ON uat.userId = users.id
-            AND uat.accountTagId IN (${ins}) `;
+        sql += `INNER JOIN userAccountTags uat ON uat.userId = users.id`;
 
         vals = [...accountTags];
+        where = `uat.accountTagId IN (${ins})`;
+        having = `COUNT(DISTINCT uat.accountTagId) = ${ac}`;
     }
 
-    if (musicTags > 0){
-        let ins = Array(accountTags.length).fill('?').join(',');
-        sql += `INNER JOIN userMusicTags umt ON umt.userId = users.id
-            AND umt.musicTagId IN (${ins}) `;
+    if (mc > 0){
+        let ins = Array(musicTags.length).fill('?').join(',');
+        sql += ` INNER JOIN userMusicTags umt ON umt.userId = users.id`;
 
         vals = [...vals, ...musicTags];
+
+        if(where){
+            where += ' AND ';
+        }
+        where += `umt.musicTagId IN (${ins})`;
+
+        if(having){
+            having += ' AND ';
+        }
+        having += `COUNT(DISTINCT umt.musicTagId) = ${mc}`;
     }
 
-    sql += `ORDER BY users.username ASC`;
+    sql += `${where ? ` WHERE ${where}` : ''}
+     ${having ? `GROUP BY users.id HAVING ${having}` : ''}
+     ORDER BY users.username ASC`;
+
+    console.log(sql);
+    console.log(vals);
 
     return await query(sql, vals);
-}
-
-const accountJoin = (a) => {
-    if(a.length <= 0){
-        return '';
-    }
-
-    let sql = ``;
-    a.forEach((e, i) => {
-        sql += `INNER JOIN userAccountTags u${i}`
-    });
-}
-
-const musicJoin = (m) => {
-    if(m.length <= 0){
-        return '';
-    }
-
-
 }

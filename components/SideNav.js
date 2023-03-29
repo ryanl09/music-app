@@ -4,6 +4,7 @@ import { AiOutlineHome } from 'react-icons/ai';
 import { HiOutlineSearch } from 'react-icons/hi';
 import { FaUserCircle } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
+import { GrUpgrade } from 'react-icons/gr';
 import { useSession } from 'next-auth/react';
 
 export default function SideNav() {
@@ -20,6 +21,7 @@ export default function SideNav() {
             <div className='grad rounded-md px-2 py-3 font-medium text-lg text-center'>CollabRoom</div>
             <Link href="/dashboard" className='rounded-md hover:bg-dg-200 px-2 py-3 --bg flex items-center gap-3'><AiOutlineHome /> Home</Link>
             <Link href="/search" className='rounded-md hover:bg-dg-200 px-2 py-3 --bg flex items-center gap-3'><HiOutlineSearch /> Search</Link>
+            <Link href="/subscribe" className='rounded-md hover:bg-dg-200 px-2 py-3 --bg flex items-center gap-3'><GrUpgrade />Subscribe</Link>
             <Link href={`/user/${username}`} className='rounded-md hover:bg-dg-200 px-2 py-3 --bg flex items-center gap-3'><FaUserCircle /> Profile</Link>
             <Link href="/logout" className='rounded-md hover:bg-dg-200 px-2 py-3 --bg flex items-center gap-3 mt-auto'><BiLogOut /> Logout</Link>
         </div>

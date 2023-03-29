@@ -10,6 +10,8 @@ export default function Search({initialAccountTags, initialMusicTags}){
     const [aTags, setATags] = useState(JSON.parse(initialAccountTags));
     const [mTags, setMTags] = useState(JSON.parse(initialMusicTags));
 
+    const [users, setUsers] = useState([]);
+
     function changeATagSelected(tagId) {
         console.log(tagId);
         const temp = Object.assign([], aTags);
@@ -48,7 +50,7 @@ export default function Search({initialAccountTags, initialMusicTags}){
 
         const sm = [];
         mTags.forEach(e =>{
-            if(e.tagSelected) { sa.push(e.id) };
+            if(e.tagSelected) { sm.push(e.id) };
         })
 
         const res = await axios.post('/api/search', {
