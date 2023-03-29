@@ -17,6 +17,11 @@ html, body {
   box-sizing: border-box;
 }
 
+body {
+  max-height:100vh;
+  overflow-y:hidden;
+}
+
 .loading-main {
   -webkit-animation: fade-in .4s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fade-in .4s; /* Firefox < 16 */

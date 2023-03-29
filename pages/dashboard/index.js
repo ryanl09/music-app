@@ -106,61 +106,78 @@ export default function Dashboard({initialAccountTags, initialMusicTags, usernam
 
     return (
         <Content>
-            <div className='grid grid-cols-1 gap-2 text-white'>
-                <div>
-                    <div className='flex items-center'>
-                        <h1 className='text-lg font-medium'>Account Tags</h1>
-                    </div>
-                    <div className='mt-2 h-[200px] border border-dg-300 rounded-md px-4 py-2'>
-                        <div>
-                            <p>Active</p>
-                            <div className='grad w-[100px] h-[2px]' />
-                            <div className='flex items-center gap-2 mt-2'>
-                                {accountTags.map(e => {
-                                    if (e.tagExists){
-                                        return (<button className='rounded-sm bg-blue px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-blue-h' onClick={() => {removeAccountTag(e.id)}} key={e.id}><AiFillMinusCircle />{e.tagName}</button>)
-                                    }
-                                })}
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+                <div className='grid grid-cols-1 gap-2 text-white'>
+                    <div>
+                        <div className='flex items-center'>
+                            <h1 className='text-lg font-medium'>Account Tags</h1>
+                        </div>
+                        <div className='mt-2 h-[200px] border border-dg-300 rounded-md px-4 py-2'>
+                            <div>
+                                <p>Active</p>
+                                <div className='grad w-[100px] h-[2px]' />
+                                <div className='flex items-center gap-2 mt-2'>
+                                    {accountTags.map(e => {
+                                        if (e.tagExists){
+                                            return (<button className='rounded-sm bg-blue px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-blue-h' onClick={() => {removeAccountTag(e.id)}} key={e.id}><AiFillMinusCircle />{e.tagName}</button>)
+                                        }
+                                    })}
+                                </div>
+                            </div>
+                            <div className='mt-4'>
+                                <p>Available</p>
+                                <div className='bg-white w-[100px] h-[2px]' />
+                                <div className='flex items-center gap-2 mt-2'>
+                                    {accountTags.map(e => {
+                                        if (!e.tagExists){
+                                            return (<button className='rounded-sm bg-dg-300 px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-dg-400' onClick={() => {addAccountTag(e.id)}} key={e.id}><AiFillPlusCircle />{e.tagName}</button>)
+                                        }
+                                    })}
+                                </div>
                             </div>
                         </div>
-                        <div className='mt-4'>
-                            <p>Available</p>
-                            <div className='bg-white w-[100px] h-[2px]' />
-                            <div className='flex items-center gap-2 mt-2'>
-                                {accountTags.map(e => {
-                                    if (!e.tagExists){
-                                        return (<button className='rounded-sm bg-dg-300 px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-dg-400' onClick={() => {addAccountTag(e.id)}} key={e.id}><AiFillPlusCircle />{e.tagName}</button>)
-                                    }
-                                })}
+                    </div>
+                    <div>
+                        <div className='flex items-center'>
+                            <h1 className='text-lg font-medium'>Music Tags</h1>
+                        </div>
+                        <div className='mt-2 h-[200px] border border-dg-300 rounded-md px-4 py-2'>
+                            <div>
+                                <p>Active</p>
+                                <div className='grad w-[100px] h-[2px]' />
+                                <div className='flex items-center gap-2 mt-2'>
+                                    {musicTags.map(e => {
+                                        if (e.tagExists){
+                                            return (<button className='rounded-sm bg-blue px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-blue-h' onClick={() => {removeMusicTag(e.id)}} key={e.id}><AiFillMinusCircle />{e.tagName}</button>)
+                                        }
+                                    })}
+                                </div>
+                            </div>
+                            <div className='mt-4'>
+                                <p>Available</p>
+                                <div className='bg-white w-[100px] h-[2px]' />
+                                <div className='flex items-center gap-2 mt-2'>
+                                    {musicTags.map(e => {
+                                        if (!e.tagExists){
+                                            return (<button className='rounded-sm bg-dg-300 px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-dg-400' onClick={() => {addMusicTag(e.id)}} key={e.id}><AiFillPlusCircle />{e.tagName}</button>)
+                                        }
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
+                <div className='text-white'>
                     <div className='flex items-center'>
-                        <h1 className='text-lg font-medium'>Music Tags</h1>
+                        <h1 className='text-lg font-medium'>Messages</h1>
                     </div>
-                    <div className='mt-2 h-[200px] border border-dg-300 rounded-md px-4 py-2'>
-                        <div>
-                            <p>Active</p>
-                            <div className='grad w-[100px] h-[2px]' />
-                            <div className='flex items-center gap-2 mt-2'>
-                                {musicTags.map(e => {
-                                    if (e.tagExists){
-                                        return (<button className='rounded-sm bg-blue px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-blue-h' onClick={() => {removeMusicTag(e.id)}} key={e.id}><AiFillMinusCircle />{e.tagName}</button>)
-                                    }
-                                })}
+                    <div className='mt-2 h-[444px] border border-dg-300 rounded-md px-4 py-2'>
+                        <div className='grid grid-cols-13'>
+                            <div>
+
                             </div>
-                        </div>
-                        <div className='mt-4'>
-                            <p>Available</p>
-                            <div className='bg-white w-[100px] h-[2px]' />
-                            <div className='flex items-center gap-2 mt-2'>
-                                {musicTags.map(e => {
-                                    if (!e.tagExists){
-                                        return (<button className='rounded-sm bg-dg-300 px-2 text-sm py-1 hover:cursor-pointer flex items-center gap-2 --bg hover:bg-dg-400' onClick={() => {addMusicTag(e.id)}} key={e.id}><AiFillPlusCircle />{e.tagName}</button>)
-                                    }
-                                })}
+                            <div>
+
                             </div>
                         </div>
                     </div>
@@ -202,6 +219,32 @@ export async function getServerSideProps(context){
     LEFT JOIN userMusicTags ON musicTags.id = userMusicTags.musicTagId AND userMusicTags.userId = users.id`;
     vals = [session.user.name];
     const musicTags = await query(sql, vals);
+
+
+    //userid
+    
+    async function getUserId(username){
+        const sql = 'SELECT id FROM users WHERE LOWER(username) = ?';
+        const vals = [username.toLowerCase()];
+
+        const result = await query(sql, vals);
+
+        if (result.error){
+            return result;
+        }
+
+        return result[0];
+    }
+
+    const userId = await getUserId(username);
+    const { id } = userId;
+    const convos = await loadConversations(id);
+
+    /**convos */
+    async function loadConversations(userId){
+        const sql='SELECT `title` ';
+        const vals=[parseInt(userId,10)];
+    }
 
     return {
         props: {
