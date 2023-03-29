@@ -75,7 +75,7 @@ export default function Register() {
           <div className='flex justify-center items-center h-[400px] md:h-[100vh] px-10'>
             <div className='flex flex-col gap-4 items-center justify-center h-full'>
                 <div className='flex justify-center'>
-                  <h1 className=' text-[72px] text-white font-bold'>Music Site</h1>
+                    <h1 className=' text-[72px] text-white font-bold'><span>Collab</span><span className='text-gradient'>Room</span></h1>
                 </div>
                 <div>
                   <Image src="/wave.png" width="200" height="60" alt="wave" />

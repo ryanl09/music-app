@@ -174,7 +174,9 @@ export default function Dashboard({initialAccountTags, initialMusicTags, usernam
                     <div className='mt-2 h-[444px] border border-dg-300 rounded-md px-4 py-2'>
                         <div className='grid grid-cols-13'>
                             <div>
-
+                                <div>
+                                    
+                                </div>
                             </div>
                             <div>
 
