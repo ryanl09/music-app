@@ -49,7 +49,6 @@ export default function Register() {
         }
 
         const f = await axios.post('/api/register', form);
-        console.log(f);
 
         if (f.data.success === undefined) {
             alert('There was an error creating your account');

@@ -4,6 +4,9 @@ import GBtn from '@/components/GBtn';
 import query from '@/lib/db';
 import { AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai';
 import axios from 'axios';
+import Image from 'next/image';
+import { BiSearchAlt2 } from 'react-icons/bi';
+import Link from 'next/link';
 
 export default function Search({initialAccountTags, initialMusicTags}){
 
@@ -13,7 +16,6 @@ export default function Search({initialAccountTags, initialMusicTags}){
     const [users, setUsers] = useState([]);
 
     function changeATagSelected(tagId) {
-        console.log(tagId);
         const temp = Object.assign([], aTags);
         temp.forEach(e => {
             if (e.id === tagId){
@@ -58,7 +60,13 @@ export default function Search({initialAccountTags, initialMusicTags}){
             musicTags: sm
         });
 
-        console.log(res);
+        const data = res.data;
+        if(data.error){
+            return;
+        }
+
+        const users = data.success;
+        setUsers(users);
     }
 
     return (
@@ -98,9 +106,28 @@ export default function Search({initialAccountTags, initialMusicTags}){
                                 </div>
                             </div>
                             <div>
-                                <GBtn onClick={querySearch}>Find users</GBtn>
+                                <button onClick={querySearch} className='bg-gr flex items-center gap-2 px-4 py-2 rounded-md'><BiSearchAlt2 /> Find users</button>
                             </div>
                         </div>
+                    </div>
+                    <div className='mt-2'>
+                        <div className='flex flex-col gap-2'>
+                            {users.length > 0 && users.map(e => {
+                                return (
+                                    <Link href={`/user/${e.username}`} key={`user-${e.id}`} >
+                                        <div className='flex gap-3 items-center --bg hover:bg-dg-200 rounded-md px-4 py-2 hover:cursor-pointer max-w-[400px]'>
+                                            <div>
+                                                <UImage />
+                                            </div>
+                                            {e.username}
+                                        </div>
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                        {users.length === 0 && (
+                            <div className='text-xl py-3 text-white/90 font-medium'>No users found</div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -133,4 +160,12 @@ export async function getServerSideProps(context){
             initialMusicTags: JSON.stringify(musicTags)
         }
     }
+}
+
+const UImage = () => {
+    return (
+        <div className='w-[40px] h-[40px]'>
+            <Image src="https://api.tecesports.com/images/general/user.png" width="40" height="40" alt="User" className=' rounded-full' />
+        </div>
+    );
 }

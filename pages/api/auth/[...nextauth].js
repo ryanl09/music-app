@@ -23,7 +23,7 @@ export const authOptions = {
                 }
             
                 try {
-                    const sql = "SELECT password FROM users WHERE username = ?";
+                    const sql = "SELECT password, id FROM users WHERE username = ?";
                     const values = [u];
 
                     const passRow = await query(sql, values);
@@ -38,7 +38,7 @@ export const authOptions = {
 
                     user = {
                         name: u,
-                        id: 1,
+                        id: passRow[0].id,
                     };
             
                 } catch (e) {
@@ -76,6 +76,9 @@ export const authOptions = {
         async jwt({ token, user, account }){
             if (account){
                 token.accessToken = account.access_token;
+            }
+            if(user){
+                token.id = user.id;
             }
             return token;
         }

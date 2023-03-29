@@ -17,6 +17,46 @@ html, body {
   box-sizing: border-box;
 }
 
+.loading-main {
+  -webkit-animation: fade-in .4s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fade-in .4s; /* Firefox < 16 */
+  -ms-animation: fade-in .4s; /* Internet Explorer */
+  -o-animation: fade-in .4s; /* Opera < 12.1 */
+  animation: fade-in .4s;
+  background-color: rgba(0,0,0,.5);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .grad::before {
   content: '';
   width:100%;
@@ -37,8 +77,21 @@ html, body {
   background-clip:text;
 }
 
-a.grad:hover, button.grad:hover {
+a.grad:hover, button.grad:hover, button.bg-gr:hover {
   box-shadow: 0px 0px 1px 2px rgba(255,255,255,0.7);
+}
+
+.bg-gr {
+  background: linear-gradient(140deg, rgb(183,47,240) 14%, rgba(77,90,228,1) 100%);
+  transition:.14s all ease;
+}
+
+.side-shadow {
+  filter: drop-shadow(0 0 .75rem black);
+}
+
+.shadow {
+  box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.2);
 }
 
 .grad-border {

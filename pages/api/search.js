@@ -3,7 +3,7 @@ import query from '../../lib/db';
 export default async function handler(req, res){
 
     if (req.method !== 'POST'){
-        res.status(200).error({ error: 'Invalid request '});
+        res.status(200).json({ error: 'Invalid request '});
         return;
     }
 
@@ -61,9 +61,6 @@ async function searchUsers(accountTags, musicTags) {
     sql += `${where ? ` WHERE ${where}` : ''}
      ${having ? `GROUP BY users.id HAVING ${having}` : ''}
      ORDER BY users.username ASC`;
-
-    console.log(sql);
-    console.log(vals);
 
     return await query(sql, vals);
 }
