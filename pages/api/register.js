@@ -23,7 +23,9 @@ export default async function handler (req, res) {
     const sql = `INSERT INTO users (name, email, username, password, activationKey)
         VALUES (?, ?, ?, ?, ?)`;
     const values = [body.name, body.email, body.username, passHash, key];
-    const q = await query(sql, values);
+    const re = await query(sql, values);
+    const { insertId } = re;
+    const fans = await query(`INSERT INTO userFans VALUES (?, 0, 0)`, [insertId]);
 
     res.status(200).json({ success: true });
 }

@@ -93,7 +93,7 @@ export default function Search({initialAccountTags, initialMusicTags}){
                             </div>
                             <div>
                                 <p>Music Tags:</p>
-                                <div className='flex items-center gap-2'>
+                                <div className='flex items-center gap-2 flex-wrap'>
                                     {mTags.map(e => {
                                         let color = 'bg-dg-300 hover:bg-dg-400';
                                         let Icon = AiFillPlusCircle;
@@ -111,15 +111,25 @@ export default function Search({initialAccountTags, initialMusicTags}){
                         </div>
                     </div>
                     <div className='mt-2'>
-                        <div className='flex flex-col gap-2'>
+                        <div className='flex flex-col gap-2 overflow-y-auto flex-wrap max-h-[400px]'>
                             {users.length > 0 && users.map(e => {
                                 return (
                                     <Link href={`/user/${e.username}`} key={`user-${e.id}`} >
                                         <div className='flex gap-3 items-center --bg hover:bg-dg-200 rounded-md px-4 py-2 hover:cursor-pointer max-w-[400px]'>
-                                            <div>
-                                                <UImage />
+                                            <div className='flex gap-2 items-center w-[120px]'>
+                                                <div>
+                                                    <UImage />
+                                                </div>
+                                                {e.username}
                                             </div>
-                                            {e.username}
+                                            <div className='w-[100px] flex flex-col items-center'>
+                                                <span className='text-sm font-medium uppercase'>Streams</span>
+                                                <span className='text-white/70'>{e.streams}</span>
+                                            </div>
+                                            <div className='w-[80px] flex flex-col items-center'>
+                                                <span className='text-sm font-medium uppercase'>Followers</span>
+                                                <span className='text-white/70'>{e.followers}</span>
+                                            </div>
                                         </div>
                                     </Link>
                                 );
@@ -147,7 +157,8 @@ export async function getServerSideProps(context){
 
     sql = 
     `SELECT musicTags.tagName, musicTags.id
-    FROM musicTags`;
+    FROM musicTags
+    ORDER BY tagName`;
     const musicTags = await query(sql, []);
 
     musicTags.forEach(e => {

@@ -17,7 +17,8 @@ module.exports = {
         'blue': 'rgba(77,90,228,1)',
         'blue-h': 'rgb(54 64 173)',
         'green': '#34bf70',
-        'green-h': '#2ba15e'
+        'green-h': '#2ba15e',
+        'red':'#cf4646'
       },
       gridTemplateColumns: {
         '23': '2fr 1fr',

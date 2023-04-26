@@ -22,9 +22,9 @@ export default async function handler(req, res){
 }
 
 async function searchUsers(accountTags, musicTags) {
-    let sql = `SELECT users.id, users.username
-    FROM users
-    `;
+    let sql = `SELECT users.id, users.username, userFans.streams, userFans.followers
+    FROM users 
+    INNER JOIN userFans on userFans.userId = users.id `;
 
     let vals = [];
     let ac = accountTags.length;
@@ -60,7 +60,7 @@ async function searchUsers(accountTags, musicTags) {
 
     sql += `${where ? ` WHERE ${where}` : ''}
      ${having ? `GROUP BY users.id HAVING ${having}` : ''}
-     ORDER BY users.username ASC`;
+     ORDER BY userFans.streams DESC, userFans.followers DESC, users.username`;
 
     return await query(sql, vals);
 }
